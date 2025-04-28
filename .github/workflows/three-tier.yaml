@@ -70,7 +70,7 @@ jobs:
           sudo systemctl enable docker
           
           # Add ec2-user to the Docker group to avoid using sudo
-          sudo usermod -aG docker ec2-user
+          sudo usermod -aG docker ubuntu
           newgrp docker  # Refresh the group membership
 
     # Step 8: SSH into EC2 to pull images from ECR and run containers
