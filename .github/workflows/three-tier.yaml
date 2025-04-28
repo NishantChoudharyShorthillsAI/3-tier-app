@@ -60,7 +60,7 @@ jobs:
       uses: appleboy/ssh-action@v0.1.6
       with:
         host: ${{ secrets.EC2_PUBLIC_IP }}
-        username: ec2-user  # Update to the appropriate username (e.g., ubuntu for Ubuntu AMI)
+        username: ubuntu  # Update to the appropriate username (e.g., ubuntu for Ubuntu AMI)
         key: ${{ secrets.EC2_PRIVATE_KEY }}
         script: |
           # Install Docker
