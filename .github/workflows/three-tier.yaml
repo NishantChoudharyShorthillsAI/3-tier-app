@@ -82,13 +82,13 @@ jobs:
         key: ${{ secrets.EC2_PRIVATE_KEY }}
         script: |
           # Login to ECR and pull the latest images
-          aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 463470985622.dkr.ecr.ap-south-1.amazonaws.com
-          docker pull 463470985622.dkr.ecr.ap-south-1.amazonaws.com/frontend:latest
-          docker pull 463470985622.dkr.ecr.ap-south-1.amazonaws.com/backend:latest
+          aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/u5f3a6m4
+          docker pull public.ecr.aws/u5f3a6m4/3-tier-frontend:latest
+          docker pull public.ecr.aws/u5f3a6m4/3-tier-backend:latest
           docker pull mongo:latest  # Pull the latest MongoDB image
           export MONGO_USERNAME=${{ secrets.MONGO_USERNAME }}
           export MONGO_PASSWORD=${{ secrets.MONGO_PASSWORD }}
           # Run the containers (Frontend, Backend, MongoDB)
           docker run -d --name mongo -p 27017:27017 mongo:latest
-          docker run -d --name backend -p 8080:8080 --link mongo:mongodb 463470985622.dkr.ecr.ap-south-1.amazonaws.com/backend:latest
-          docker run -d --name frontend -p 3000:3000 --link backend:backend 463470985622.dkr.ecr.ap-south-1.amazonaws.com/frontend:latest
+          docker run -d --name backend -p 8080:8080 --link mongo:mongodb public.ecr.aws/u5f3a6m4/3-tier-backend:latest
+          docker run -d --name frontend -p 3000:3000 --link backend:backend public.ecr.aws/u5f3a6m4/3-tier-frontend:latest
